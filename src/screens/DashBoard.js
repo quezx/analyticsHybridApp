@@ -119,7 +119,7 @@ export default class DashBoard extends React.Component {
                     this.refreshToken(refresh_Token);
                 }
                 this.setState((state, props) => ({
-                    returnURL: JSON.stringify(data),
+                    returnURL: data.toString(),
                 }), () => {
                     console.log('SURTHI',this.state);
                     return true;

@@ -1,6 +1,7 @@
 import React from 'react';
-import {Button, Image, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Image, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView} from "react-native";
 import StorageHelper from '../helper/StorageHelper';
+import { Container, Header, Content, Form, Item, Input, Button, Label } from 'native-base';
 
 
 export default class Login extends React.Component {
@@ -21,8 +22,8 @@ export default class Login extends React.Component {
         let details = {
             'username': email,
             'password': pass,
-            'client_id':'analyticsapp',
-            'client_secret': 'analyticshybridapp',
+            'client_id':'analyticsquezx',
+            'client_secret': 'analyticssecret',
             'grant_type': 'password'
         };
 
@@ -78,46 +79,37 @@ export default class Login extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <StatusBar
-                    barStyle="light-content"
-                    backgroundColor="#4F6D7A"
-                />
+                <ScrollView>
                 <Image style={styles.logo} source={require('../../images/quezx_logo.png')} />
                 <Text style={styles.title}>
                     ANALYTICS
                 </Text>
-                <Text style={styles.labels}>
-                    User Name
-                </Text>
-                <View style={[styles.row, styles.underline]}>
-                    <TextInput
-                        {...this.props} // Inherit any props passed to it; e.g., multiline, numberOfLines below
-                        editable = {true}
-                        maxLength = {40}
-                        onChangeText = {this.handleEmail}
-                    />
-                </View >
-                <Text style={styles.labels}>
-                    Password
-                </Text>
-                <View style={[styles.row, styles.underline]}>
-                    <TextInput
-                        {...this.props} // Inherit any props passed to it; e.g., multiline, numberOfLines below
-                        editable = {true}
-                        maxLength = {40}
-                        onChangeText = {this.handlePassword}
-                    />
-                </View >
+                <Container style={styles.loginContainer}>
+                    <Header />
+                    <Content>
+                        <Form>
+                            <Item floatingLabel>
+                                <Label>Username</Label>
+                                <Input />
+                            </Item>
+                            <Item floatingLabel last>
+                                <Label>Password</Label>
+                                <Input />
+                            </Item>
+                        </Form>
+                    </Content>
+                </Container>
                 <View style={styles.backgroundColorButton}>
-                    <Button
-                        title="LOGIN"
-                        color="#ffffff"
+                    <Button block success
                         accessibilityLabel="Learn more about this purple button"
                         onPress={() =>
                             this.login(this.state.email, this.state.password)
                             // this.props.navigation.navigate('DashBoard', {title: 'Dashboard'})
                         }
-                    />
+                    >
+                        <Text style={styles.buttonLabel}
+                        > LOGIN </Text>
+                    </Button>
                 </View>
                 <Text style={styles.welcome}>
                     OR
@@ -132,6 +124,7 @@ export default class Login extends React.Component {
                 <Text style={styles.labels}>
                     Forgot Password
                 </Text>
+                </ScrollView>
             </View>
         );
     }
@@ -143,6 +136,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
+    },
+    loginContainer: {
+        width: '100%',
+        justifyContent: 'center',
     },
     welcome: {
         fontSize: 20,
@@ -170,6 +167,12 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
     },
+    buttonLabel: {
+        color: '#fff',
+        fontSize: 18,
+        textAlign: 'center',
+        fontWeight: 'bold',
+    },
     labels: {
         color: '#a9a9a9',
         fontSize: 14,
@@ -189,7 +192,6 @@ const styles = StyleSheet.create({
     },
     backgroundColorButton: {
         backgroundColor: '#228b22',
-        marginTop: 15,
         width: "90%",
     },
     signInWithGoogle: {
