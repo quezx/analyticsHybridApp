@@ -1,8 +1,11 @@
 import React from 'react';
-import {StyleSheet, View, Button, Text, Image, TouchableOpacity, WebView} from 'react-native';
+import {StyleSheet, View, Image, TouchableOpacity, WebView} from 'react-native';
 import { getMetaBaseURL } from '../service/FetchURL'
 import conn from '../connection/QuezxConection'
 import StorageHelper from '../helper/StorageHelper';
+import { Footer, FooterTab, Button, Text } from 'native-base';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 var dashboard_types = [
     {label: 'Central Dashboard', value: 0 , id: 2, dashboardId: 3},
@@ -53,6 +56,22 @@ export default class DashBoard extends React.Component {
                         style={{marginTop: 20, height: "100%" }}
                         startInLoadingState={true}
                     />
+                    <Footer>
+                        <FooterTab>
+                            <Button vertical>
+                                <Icon name="view-grid" size={30} />
+                                <Text>Dashboard</Text>
+                            </Button>
+                            <Button vertical
+                                onPress={() =>
+                                    this.props.navigation.navigate('ReportList', {title: 'ReportList'})
+                                }
+                                >
+                                <Icon name="file-find" size={30} />
+                                <Text>Reports</Text>
+                            </Button>
+                        </FooterTab>
+                    </Footer>
                 </View>
             </View>
         );
@@ -134,8 +153,8 @@ export default class DashBoard extends React.Component {
         let details = {
             'grant_type': 'refresh_token',
             'refresh_token': refresh_Token,
-            'client_id': 'analyticsapp',
-            'client_secret': 'analyticshybridapp'
+            'client_id': 'analyticsquezx',
+            'client_secret': 'analyticssecret'
         };
 
         let formBody = [];

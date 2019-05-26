@@ -1,10 +1,17 @@
 import React from 'react';
-import {Image, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView} from "react-native";
+import {Image, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, Animated} from "react-native";
 import StorageHelper from '../helper/StorageHelper';
 import { Container, Header, Content, Form, Item, Input, Button, Label } from 'native-base';
 
 
 export default class Login extends React.Component {
+
+    navigationOptions: {
+        header: {
+            visible: false
+        }
+    }
+
     state = {
         email: '',
         password: ''
@@ -78,54 +85,45 @@ export default class Login extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <ScrollView>
-                <Image style={styles.logo} source={require('../../images/quezx_logo.png')} />
+            <KeyboardAvoidingView
+                style={styles.container}
+                behavior="padding"
+            >
+                <Animated.Image source={require('../../images/quezx_logo.png')} style={[styles.logo]} />
                 <Text style={styles.title}>
                     ANALYTICS
                 </Text>
-                <Container style={styles.loginContainer}>
-                    <Header />
-                    <Content>
-                        <Form>
-                            <Item floatingLabel>
-                                <Label>Username</Label>
-                                <Input />
-                            </Item>
-                            <Item floatingLabel last>
-                                <Label>Password</Label>
-                                <Input />
-                            </Item>
-                        </Form>
-                    </Content>
-                </Container>
+                <TextInput
+                    placeholder="Email"
+                    style={styles.input}
+                    {...this.props} // Inherit any props passed to it; e.g., multiline, numberOfLines below
+                    editable = {true}
+                    maxLength = {40}
+                    onChangeText = {this.handleEmail}
+                />
+                <TextInput
+                    placeholder="Password"
+                    style={styles.input}
+                    {...this.props} // Inherit any props passed to it; e.g., multiline, numberOfLines below
+                    editable = {true}
+                    maxLength = {40}
+                    onChangeText = {this.handlePassword}
+
+                />
                 <View style={styles.backgroundColorButton}>
                     <Button block success
-                        accessibilityLabel="Learn more about this purple button"
-                        onPress={() =>
-                            this.login(this.state.email, this.state.password)
-                            // this.props.navigation.navigate('DashBoard', {title: 'Dashboard'})
-                        }
+                            accessibilityLabel="Learn more about this purple button"
+                            onPress={() =>
+                                this.login(this.state.email, this.state.password)
+                                // this.props.navigation.navigate('DashBoard', {title: 'Dashboard'})
+                            }
                     >
                         <Text style={styles.buttonLabel}
-                        > LOGIN </Text>
+                        > LOG IN </Text>
                     </Button>
                 </View>
-                <Text style={styles.welcome}>
-                    OR
-                </Text>
-                <TouchableOpacity style={[styles.GooglePlusStyle, styles.input]} activeOpacity={0.5}>
-                    {<Image
-                        source={require('../../images/google_icon.png')}
-                        style={styles.ImageIconStyle}
-                    />}
-                    <Text> Sign in with Google </Text>
-                </TouchableOpacity>
-                <Text style={styles.labels}>
-                    Forgot Password
-                </Text>
-                </ScrollView>
-            </View>
+            </KeyboardAvoidingView>
+
         );
     }
 }
@@ -133,34 +131,36 @@ export default class Login extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        justifyContent: 'center',
+    },
+    input: {
+        height: 50,
+        width: "90%",
+        backgroundColor: '#fff',
+        marginHorizontal: 10,
+        marginVertical: 5,
+        borderColor: 'gray',
+        borderWidth: 0.5
+    },
+    logo: {
+        height: 80,
+        width: 200,
+        padding:10,
+        resizeMode: 'contain',
     },
     loginContainer: {
+        flex: 1,
+        flexWrap: 'wrap',
         width: '100%',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
     },
     welcome: {
         fontSize: 20,
         textAlign: 'center',
         margin: 10,
     },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
-    logoContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-    },
-    logo: {
-        height: 80,
-        width: 156,
-        resizeMode: 'contain',
-    },
+
     title: {
         color: '#a9a9a9',
         fontSize: 18,
@@ -181,23 +181,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: 30,
     },
-    underline: {
-        width:'90%',
-        borderColor: '#a9a9a9',
-        borderWidth: 1,
-        paddingLeft: 5,
-        paddingRight: 5,
-        paddingTop: 10,
-        paddingBottom:10,
-    },
     backgroundColorButton: {
-        backgroundColor: '#228b22',
-        width: "90%",
-    },
-    signInWithGoogle: {
-        backgroundColor: '#ffffff',
-        marginTop: 15,
-        width: "90%",
+        flex: 1,
+        margin: 15,
+        width: "90%"
     },
     GooglePlusStyle: {
         flexDirection: 'row',
@@ -208,8 +195,6 @@ const styles = StyleSheet.create({
         height: 40,
         borderRadius: 5,
         paddingLeft: 90
-
-
     },
     ImageIconStyle: {
         padding: 10,
@@ -217,10 +202,5 @@ const styles = StyleSheet.create({
         height: 25,
         width: 25,
         resizeMode : 'stretch',
-    },
-    input:
-        {
-            width: "90%",
-
-        }
+    }
 });

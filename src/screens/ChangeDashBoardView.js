@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Button,Text } from 'react-native';
+import { StyleSheet, View,Text } from 'react-native';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import { Button } from 'native-base';
 
 
 var dashboard_types = [
@@ -33,10 +34,7 @@ export default class ChangeDashBoardView extends React.Component {
                 />
                 <View style={styles.bottom}>
                     <View style={styles.backgroundColorButton}>
-                        <Button
-                            style={styles.button}
-                            title="Set as Default"
-                            color="#fff"
+                        <Button block success
                             onPress={() => {
                                 console.log('AFTER CHANGE',this.state.value)
                                 this.props.navigation.navigate('DashBoard',
@@ -45,7 +43,10 @@ export default class ChangeDashBoardView extends React.Component {
                                     left: null})
                             }
                             }
-                        />
+                        >
+                            <Text style={styles.buttonLabel}
+                            > Set as Default </Text>
+                        </Button>
                     </View>
 
                 </View>
@@ -71,6 +72,12 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         marginBottom: 36,
         width: "90%",
+    },
+    buttonLabel: {
+        color: '#fff',
+        fontSize: 18,
+        textAlign: 'center',
+        fontWeight: 'bold',
     },
     backgroundColorButton: {
         backgroundColor: '#228b22',

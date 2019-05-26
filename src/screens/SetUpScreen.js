@@ -11,7 +11,7 @@ export default class SetUpScreen extends Component {
        if (token) {
            this.props.navigation.replace('DashBoard', {title: 'Dashboard',left: null})
        } else {
-           this.props.navigation.navigate('Login', {title: 'Login', left: null})
+           this.props.navigation.replace('Login', {title: 'Login', left: null})
        }
    }
    constructor(props) {
